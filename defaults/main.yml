@@ -1,0 +1,37 @@
+---
+navidrome_user: www-data
+navidrome_group: www-data
+navidrome_version: 0.23.1
+navidrome_arch: "{{ ansible_architecture }}"
+navidrome_system: "{{ ansible_system }}"
+navidrome_dl_url: github.com/deluan/navidrome/releases/download
+navidrome_release_tar: |
+  https://{{ navidrome_dl_url }}/v{{ navidrome_version }}/navidrome_{{ navidrome_version }}_{{ navidrome_system }}_{{ navidrome_arch }}.tar.gz
+navidrome_remote_src: yes  # yamllint disable-line rule:truthy
+
+navidrome_install_location: /opt/navidrome
+
+navidrome_package_requirements:
+  - ffmpeg
+
+navidrome_service_privatedevices:
+navidrome_service_protectsystem:
+navidrome_service_protecthome:
+
+navidrome_config_dir: /var/lib/navidrome
+navidrome_config_file: navidrome.toml
+
+navidrome_musicfolder: ""
+navidrome_datafolder: ""
+navidrome_scaninterval: ""
+navidrome_loglevel: ""
+navidrome_port: 4533
+navidrome_enabletranscodingconfig: ""
+navidrome_transcodingcachesize: ""
+navidrome_imagecachesize: ""
+navidrome_sessiontimeout: ""
+navidrome_baseurl: ""
+navidrome_uiloginbackgroundurl: ""
+navidrome_ignoredarticles: ""
+
+navidrome_pid_file: /var/run/navidrome.pid

@@ -1,0 +1,9 @@
+---
+- name: reload systemd
+  systemd:
+    daemon_reload: yes  # yamllint disable-line rule:truthy
+
+- name: restart navidrome
+  systemd:
+    name: navidrome
+    state: restarted

@@ -1,0 +1,63 @@
+---
+- name: Install prereq packages
+  apt:
+    name: "{{ navidrome_package_requirements }}"
+    state: present
+    update_cache: yes  # yamllint disable-line rule:truthy
+    force_apt_get: yes  # yamllint disable-line rule:truthy
+  when: navidrome_package_requirements is defined
+
+- name: ensure directories
+  file:
+    path: "{{ item }}"
+    owner: "{{ navidrome_user }}"
+    group: "{{ navidrome_group }}"
+    state: directory
+    mode: '0755'
+  with_items:
+    - "{{ navidrome_install_location }}"
+    - "{{ navidrome_config_dir }}"
+
+- name: Download and extract
+  unarchive:
+    src: "{{ navidrome_release_tar }}"
+    dest: "{{ navidrome_install_location }}"
+    remote_src: "{{ navidrome_remote_src }}"
+    owner: "{{ navidrome_user }}"
+    group: "{{ navidrome_group }}"
+    mode: '0755'
+  when: navidrome_release_tar is defined
+  notify:
+    - restart navidrome
+
+- name: navidrome | Configure navidrome.toml
+  template:
+    src: var/lib/navidrome/navidrome.toml.j2
+    dest: "{{ navidrome_config_dir }}/{{ navidrome_config_file }}"
+    owner: "{{ navidrome_user }}"
+    group: "{{ navidrome_group }}"
+    mode: '0644'
+  notify:
+    - restart navidrome
+
+- name: navidrome | Configure navidrome systemd service
+  template:
+    src: etc/systemd/system/navidrome.service.j2
+    dest: /etc/systemd/system/navidrome.service
+    owner: "{{ navidrome_user }}"
+    group: "{{ navidrome_group }}"
+    mode: '0644'
+  notify:
+    - restart navidrome
+
+- name: reload systemd
+  systemd:
+    daemon_reload: yes  # yamllint disable-line rule:truthy
+
+- name: enable navidrome
+  systemd:
+    name: navidrome
+    state: started
+    enabled: yes  # yamllint disable-line rule:truthy
+  notify:
+    - reload systemd

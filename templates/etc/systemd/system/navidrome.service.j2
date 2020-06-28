@@ -1,0 +1,50 @@
+#jinja2: trim_blocks:False
+# {{ ansible_managed }}
+# https://www.navidrome.org/docs/installation/pre-built-binaries/#create-a-systemd-unit
+[Unit]
+Description=Navidrome Music Server and Streamer compatible with Subsonic/Airsonic
+Documentation=https://www.navidrome.org/docs/
+After=remote-fs.target network.target
+AssertPathExists={{ navidrome_config_dir }}
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+PIDFile={{ navidrome_pid_file }}
+User={% if navidrome_user is defined and navidrome_user %}{{ navidrome_user }}{% else %}www-data{% endif %}
+Group={% if navidrome_group is defined and navidrome_group %}{{ navidrome_group }}{% else %}www-data{% endif %}
+Type=simple
+ExecStart={{ navidrome_install_location }}/navidrome -configfile "{{ navidrome_config_dir }}/{{ navidrome_config_file }}"
+ExecStop=/bin/kill -SIGTERM $MAINPID
+WorkingDirectory={{ navidrome_config_dir }}
+TimeoutStopSec=20
+KillMode=process
+Restart=on-failure
+
+# See https://www.freedesktop.org/software/systemd/man/systemd.exec.html
+DevicePolicy=closed
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateUsers=yes
+ProtectControlGroups=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+RestrictNamespaces=yes
+RestrictRealtime=yes
+SystemCallFilter=~@clock @debug @module @mount @obsolete @privileged @reboot @setuid @swap
+ReadWritePaths={{ navidrome_config_dir }}
+
+# set this to yes if you're not using the jukebox This
+# will prevent navidrome from accessing any real (physical) devices
+PrivateDevices={% if navidrome_service_privatedevices is defined and navidrome_service_privatedevices %}{{ navidrome_service_privatedevices }}{% else %}no{% endif %}
+
+# You can change the following line to `strict` instead of `full` if you don't
+# want navidrome to be able to write anything on your filesystem outside of
+# {{ navidrome_config_dir }}.
+ProtectSystem={% if navidrome_service_protectsystem is defined and navidrome_service_protectsystem %}{{ navidrome_service_protectsystem }}{% else %}full{% endif %}
+
+# Set to true if you don't have any media in /home/*.
+# This will prevent navidrome from ever reading/writing anything there.
+ProtectHome={% if navidrome_service_protecthome is defined and navidrome_service_protecthome %}{{ navidrome_service_protecthome }}{% else %}false{% endif %}

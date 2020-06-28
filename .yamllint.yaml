@@ -1,0 +1,8 @@
+---
+extends: default
+
+rules:
+  line-length:
+    level: warning
+  indentation:
+    spaces: 2

@@ -1,0 +1,14 @@
+#jinja2: trim_blocks:False
+# {{ ansible_managed }}
+{% if navidrome_musicfolder is defined and navidrome_musicfolder|length %}MusicFolder = "{{ navidrome_musicfolder }}"{% endif %}
+{% if navidrome_datafolder is defined and navidrome_datafolder|length %}DataFolder = "{{ navidrome_datafolder }}"{% endif %}
+{% if navidrome_scaninterval is defined and navidrome_scaninterval|length %}ScanInterval = "{{ navidrome_scaninterval }}"{% endif %}
+{% if navidrome_loglevel is defined and navidrome_loglevel|length %}LogLevel = "{{ navidrome_loglevel }}"{% endif %}
+{% if navidrome_port is defined and navidrome_port is number %}Port = "{{ navidrome_port }}"{% endif %}
+{% if navidrome_enabletranscodingconfig is defined and navidrome_enabletranscodingconfig|length %}EnableTranscodingConfig = "{{ navidrome_enabletranscodingconfig }}"{% endif %}
+{% if navidrome_transcodingcachesize is defined and navidrome_transcodingcachesize|length %}TranscodingCacheSize = "{{ navidrome_transcodingcachesize }}"{% endif %}
+{% if navidrome_imagecachesize is defined and navidrome_imagecachesize|length %}ImageCacheSize = "{{ navidrome_imagecachesize }}"{% endif %}
+{% if navidrome_sessiontimeout is defined and navidrome_sessiontimeout|length %}SessionTimeout = "{{ navidrome_sessiontimeout }}"{% endif %}
+{% if navidrome_baseurl is defined and navidrome_baseurl|length %}BaseUrl = "{{ navidrome_baseurl }}"{% endif %}
+{% if navidrome_uiloginbackgroundurl is defined and navidrome_uiloginbackgroundurl|length %}UiLoginBackgroundUrl = "{{ navidrome_uiloginbackgroundurl }}"{% endif %}
+{% if navidrome_ignoredarticles is defined and navidrome_ignoredarticles|length %}IgnoredArticles "{{ navidrome_ignoredarticles }}"{% endif %}
