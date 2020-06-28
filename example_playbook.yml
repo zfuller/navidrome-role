@@ -6,7 +6,7 @@
   become_method: sudo
   become: yes
   roles:
-    - role: zfuller.navidrome
+    - role: zfuller.navidrome_role
   vars:
     navidrome_domain: < domain >
     navidrome_caddyfile_loc: "{{ navidrome_config_dir }}/Caddyfile"

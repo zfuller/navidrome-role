@@ -20,13 +20,14 @@ navidrome_arch: "{{ ansible_architecture }}"
 navidrome_system: "{{ ansible_system }}"
 
 # default location of the tar
-navidrome_release_tar: https://github.com/deluan/navidrome/releases/download/v{{ navidrome_version }}/navidrome_{{ navidrome_version }}_{{ navidrome_system }}_{{ navidrome_arch }}.tar.gz
+navidrome_dl_url: github.com/deluan/navidrome/releases/download
+navidrome_release_tar: |
+  https://{{ navidrome_dl_url }}/v{{ navidrome_version }}/navidrome_{{ navidrome_version }}_{{ navidrome_system }}_{{ navidrome_arch }}.tar.gz
 
 # If you have a local tar.gz that you would like to use you can set
 # navidrome_release_tar: to the location of it and then set
 # navidrome_remote_src to no
 navidrome_remote_src: yes
-
 
 navidrome_install_location: /opt/navidrome
 navidrome_config_dir: /var/lib/navidrome
@@ -72,7 +73,7 @@ N/A
       hosts: navidrome
       gather_facts: yes
       roles:
-         - role: zfuller.navidrome
+         - role: zfuller.navidrome_role
 ```
 
 ## w/Caddy reverse proxy
