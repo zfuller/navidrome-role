@@ -1,7 +1,7 @@
 ---
 navidrome_user: www-data
 navidrome_group: www-data
-navidrome_version: 0.25.0
+navidrome_version: 0.26.0
 navidrome_arch: "{{ ansible_architecture }}"
 navidrome_system: "{{ ansible_system }}"
 navidrome_dl_url: github.com/deluan/navidrome/releases/download
@@ -21,17 +21,37 @@ navidrome_service_protecthome:
 navidrome_config_dir: /var/lib/navidrome
 navidrome_config_file: navidrome.toml
 
-navidrome_musicfolder: ""
-navidrome_datafolder: ""
-navidrome_scaninterval: ""
-navidrome_loglevel: ""
-navidrome_port: 4533
-navidrome_enabletranscodingconfig: ""
-navidrome_transcodingcachesize: ""
-navidrome_imagecachesize: ""
-navidrome_sessiontimeout: ""
+navidrome_altconfigfile: ""
+
+navidrome_ipaddress: ""  # 0.0.0.0
+navidrome_port: 4533  # 4533
+
 navidrome_baseurl: ""
+navidrome_loglevel: ""  # "info", error info debug trace
+
+navidrome_datafolder: ""  # "./data"
+navidrome_musicfolder: ""  # "./music"
+navidrome_scaninterval: ""  # "1m"
+
+navidrome_authlimit: ""  # 5
+navidrome_authratelimit: ""  # "20s"
+
+# Google analytics account ID
+navidrome_gaid: ""  # UA-XXXXXXXX
+
+navidrome_ignoredarticles: ""  # "The El La Los Las Le Les Os As O A"
+navidrome_sessiontimeout: ""  # "24h"
+navidrome_transcodingcachesize: ""  # "100MB"
 navidrome_uiloginbackgroundurl: ""
-navidrome_ignoredarticles: ""
+navidrome_uiwelcomemessage: ""
+navidrome_coverartpriority: ""  # "embedded, cover.*, folder.*, front.*"
+navidrome_imagecachesize: ""  # "100MB"
+navidrome_jpegquality: ""  # 75
+navidrome_enabletranscodingconfig: ""  # false
 
 navidrome_pid_file: /var/run/navidrome.pid
+
+
+navidrome_dev_logsourceline: ""
+navidrome_dev_autocreateadminpassword: ""
+navidrome_dev_newscanner: ""  # false

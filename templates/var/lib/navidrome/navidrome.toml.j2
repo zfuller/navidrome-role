@@ -1,14 +1,26 @@
 #jinja2: trim_blocks:False
 # {{ ansible_managed }}
-{% if navidrome_musicfolder is defined and navidrome_musicfolder|length %}MusicFolder = "{{ navidrome_musicfolder }}"{% endif %}
-{% if navidrome_datafolder is defined and navidrome_datafolder|length %}DataFolder = "{{ navidrome_datafolder }}"{% endif %}
-{% if navidrome_scaninterval is defined and navidrome_scaninterval|length %}ScanInterval = "{{ navidrome_scaninterval }}"{% endif %}
-{% if navidrome_loglevel is defined and navidrome_loglevel|length %}LogLevel = "{{ navidrome_loglevel }}"{% endif %}
+{% if navidrome_ipaddress is defined and navidrome_ipaddress is number %}Address = "{{ navidrome_ipaddress }}"{% endif %}
 {% if navidrome_port is defined and navidrome_port is number %}Port = "{{ navidrome_port }}"{% endif %}
-{% if navidrome_enabletranscodingconfig is defined and navidrome_enabletranscodingconfig|length %}EnableTranscodingConfig = "{{ navidrome_enabletranscodingconfig }}"{% endif %}
-{% if navidrome_transcodingcachesize is defined and navidrome_transcodingcachesize|length %}TranscodingCacheSize = "{{ navidrome_transcodingcachesize }}"{% endif %}
-{% if navidrome_imagecachesize is defined and navidrome_imagecachesize|length %}ImageCacheSize = "{{ navidrome_imagecachesize }}"{% endif %}
-{% if navidrome_sessiontimeout is defined and navidrome_sessiontimeout|length %}SessionTimeout = "{{ navidrome_sessiontimeout }}"{% endif %}
 {% if navidrome_baseurl is defined and navidrome_baseurl|length %}BaseUrl = "{{ navidrome_baseurl }}"{% endif %}
+{% if navidrome_loglevel is defined and navidrome_loglevel|length %}LogLevel = "{{ navidrome_loglevel }}"{% endif %}
+{% if navidrome_altconfigfile is defined and navidrome_altconfigfile|length %}ConfigFile = "{{ navidrome_altconfigfile }}"{% endif %}
+{% if navidrome_datafolder is defined and navidrome_datafolder|length %}DataFolder = "{{ navidrome_datafolder }}"{% endif %}
+{% if navidrome_musicfolder is defined and navidrome_musicfolder|length %}MusicFolder = "{{ navidrome_musicfolder }}"{% endif %}
+{% if navidrome_scaninterval is defined and navidrome_scaninterval|length %}ScanInterval = "{{ navidrome_scaninterval }}"{% endif %}
+{% if navidrome_authlimit is defined and navidrome_authlimit is number %}AuthRequestLimit = "{{ navidrome_authlimit }}"{% endif %}
+{% if navidrome_authratelimit is defined and navidrome_authratelimit|length %}AuthWindowLength = "{{ navidrome_authratelimit }}"{% endif %}
+{% if navidrome_gaid is defined and navidrome_gaid|length %}GATrackingID = "{{ navidrome_gaid }}"{% endif %}
+{% if navidrome_ignoredarticles is defined and navidrome_ignoredarticles|length %}IgnoredArticles = "{{ navidrome_ignoredarticles }}"{% endif %}
+{% if navidrome_sessiontimeout is defined and navidrome_sessiontimeout|length %}SessionTimeout = "{{ navidrome_sessiontimeout }}"{% endif %}
+{% if navidrome_transcodingcachesize is defined and navidrome_transcodingcachesize|length %}TranscodingCacheSize = "{{ navidrome_transcodingcachesize }}"{% endif %}
 {% if navidrome_uiloginbackgroundurl is defined and navidrome_uiloginbackgroundurl|length %}UiLoginBackgroundUrl = "{{ navidrome_uiloginbackgroundurl }}"{% endif %}
-{% if navidrome_ignoredarticles is defined and navidrome_ignoredarticles|length %}IgnoredArticles "{{ navidrome_ignoredarticles }}"{% endif %}
+{% if navidrome_uiwelcomemessage is defined and navidrome_uiwelcomemessage|length %}UIWelcomeMessage = "{{ navidrome_uiwelcomemessage }}"{% endif %}
+{% if navidrome_coverartpriority is defined and navidrome_coverartpriority|length %}CoverArtPriority = "{{ navidrome_coverartpriority }}"{% endif %}
+{% if navidrome_imagecachesize is defined and navidrome_imagecachesize|length %}ImageCacheSize = "{{ navidrome_imagecachesize }}"{% endif %}
+{% if navidrome_jpegquality is defined and navidrome_jpegquality is number %}CoverJpegQuality = {{ navidrome_jpegquality }}{% endif %}
+{% if navidrome_enabletranscodingconfig is defined and navidrome_enabletranscodingconfig|length %}EnableTranscodingConfig = "{{ navidrome_enabletranscodingconfig }}"{% endif %}
+
+{% if navidrome_dev_logsourceline is defined and navidrome_dev_logsourceline|length %}DevLogSourceLine = "{{ navidrome_dev_logsourceline }}"{% endif %}
+{% if navidrome_dev_autocreateadminpassword is defined and navidrome_dev_autocreateadminpassword|length %}DevAutoCreateAdminPassword = {{ navidrome_dev_autocreateadminpassword }}{% endif %}
+{% if navidrome_dev_newscanner is defined and navidrome_dev_newscanner|length %}DevNewScanner = "{{ navidrome_dev_newscanner }}"{% endif %}

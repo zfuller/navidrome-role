@@ -2,9 +2,9 @@
 - name: setup navidrom w/ reverse proxy
   hosts: navidrome
   strategy: free
-  gather_facts: yes
+  gather_facts: yes  # yamllint disable-line rule:truthy
   become_method: sudo
-  become: yes
+  become: yes  # yamllint disable-line rule:truthy
   roles:
     - role: zfuller.navidrome_role
   vars:
@@ -33,8 +33,15 @@
       apt:
         name: caddy
         state: latest
-        update_cache: yes
-        force_apt_get: yes
+        update_cache: yes  # yamllint disable-line rule:truthy
+        force_apt_get: yes  # yamllint disable-line rule:truthy
+
+    - name:
+      file:
+        path: "{{ navidrome_config_dir }}/access.{{ navidrome_domain }}.log"
+        owner: "{{ navidrome_user }}"
+        group: "{{ navidrome_group }}"
+        mode: '0644'
 
     - name: push caddyfile
       copy:
@@ -80,10 +87,10 @@
         group: "{{ navidrome_group }}"
     - name: reload systemd
       systemd:
-        daemon_reload: yes
+        daemon_reload: yes  # yamllint disable-line rule:truthy
 
     - name: enable caddy
       systemd:
         name: caddy
         state: started
-        enabled: yes
+        enabled: yes  # yamllint disable-line rule:truthy
