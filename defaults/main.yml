@@ -54,4 +54,4 @@ navidrome_pid_file: /var/run/navidrome.pid
 
 navidrome_dev_logsourceline: ""
 navidrome_dev_autocreateadminpassword: ""
-navidrome_dev_newscanner: ""  # false
+navidrome_dev_oldscanner: ""  # false

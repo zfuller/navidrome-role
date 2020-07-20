@@ -78,7 +78,7 @@ navidrome_enabletranscodingconfig: ""  # false
 # WIP features and such
 navidrome_dev_logsourceline: ""
 navidrome_dev_autocreateadminpassword: ""
-navidrome_dev_newscaner: ""  # false
+navidrome_dev_oldscanner: ""  # false
 ```
 
 # Dependencies
