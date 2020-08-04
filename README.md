@@ -15,7 +15,7 @@ navidrome_user: www-data
 navidrome_group: www-data
 
 # download information
-navidrome_version: 0.27.0
+navidrome_version: 0.28.0
 navidrome_arch: "{{ ansible_architecture }}"
 navidrome_system: "{{ ansible_system }}"
 
