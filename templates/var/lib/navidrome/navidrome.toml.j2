@@ -20,7 +20,7 @@
 {% if navidrome_imagecachesize is defined and navidrome_imagecachesize|length %}ImageCacheSize = "{{ navidrome_imagecachesize }}"{% endif %}
 {% if navidrome_jpegquality is defined and navidrome_jpegquality is number %}CoverJpegQuality = {{ navidrome_jpegquality }}{% endif %}
 {% if navidrome_enabletranscodingconfig is defined and navidrome_enabletranscodingconfig|length %}EnableTranscodingConfig = "{{ navidrome_enabletranscodingconfig }}"{% endif %}
-
+{% if navidrome_scanner_extractor is defined and navidrome_scanner_extractor|length %}Scanner.Extractor = "{{ navidrome_scanner_extractor }}"{% endif %}
 {% if navidrome_dev_logsourceline is defined and navidrome_dev_logsourceline|length %}DevLogSourceLine = "{{ navidrome_dev_logsourceline }}"{% endif %}
 {% if navidrome_dev_autocreateadminpassword is defined and navidrome_dev_autocreateadminpassword|length %}DevAutoCreateAdminPassword = {{ navidrome_dev_autocreateadminpassword }}{% endif %}
 {% if navidrome_dev_oldscanner is defined and navidrome_dev_oldscanner|length %}DevOldScanner = "{{ navidrome_dev_oldscanner }}"{% endif %}

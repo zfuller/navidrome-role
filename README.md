@@ -15,7 +15,7 @@ navidrome_user: www-data
 navidrome_group: www-data
 
 # download information
-navidrome_version: 0.32.0
+navidrome_version: 0.33.0
 navidrome_arch: "{{ ansible_architecture }}"
 navidrome_system: "{{ ansible_system }}"
 
@@ -37,6 +37,7 @@ navidrome_configuration_file: navidrome.toml
 # additional package requirements
 navidrome_package_requirements:
   - ffmpeg
+  - libtag1v5
 
 # systemd service options
 navidrome_service_privatedevices:
