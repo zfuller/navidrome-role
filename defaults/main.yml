@@ -1,7 +1,7 @@
 ---
 navidrome_user: www-data
 navidrome_group: www-data
-navidrome_version: 0.34.1
+navidrome_version: 0.35.1
 navidrome_arch: "{{ ansible_architecture }}"
 navidrome_system: "{{ ansible_system }}"
 navidrome_dl_url: github.com/deluan/navidrome/releases/download
