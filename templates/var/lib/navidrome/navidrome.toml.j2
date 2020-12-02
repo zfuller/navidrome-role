@@ -24,3 +24,9 @@
 {% if navidrome_dev_logsourceline is defined and navidrome_dev_logsourceline|length %}DevLogSourceLine = "{{ navidrome_dev_logsourceline }}"{% endif %}
 {% if navidrome_dev_autocreateadminpassword is defined and navidrome_dev_autocreateadminpassword|length %}DevAutoCreateAdminPassword = {{ navidrome_dev_autocreateadminpassword }}{% endif %}
 {% if navidrome_dev_oldscanner is defined and navidrome_dev_oldscanner|length %}DevOldScanner = "{{ navidrome_dev_oldscanner }}"{% endif %}
+{% if navidrome_lastfm_apikey is defined and navidrome_lastfm_apikey|length %}LastFM.ApiKey = "{{ navidrome_lastfm_apikey }}"{% endif %}
+{% if navidrome_lastfm_secret is defined and navidrome_lastfm_secret|length %}LastFM.Secret = "{{ navidrome_lastfm_secret }}"{% endif %}
+{% if navidrome_lastfm_language is defined and navidrome_lastfm_language|length %}LastFM.Language = "{{ navidrome_lastfm_language }}"{% endif %}
+{% if navidrome_spotify_id is defined and navidrome_spotify_id|length %}Spotify.ID = "{{ navidrome_spotify_id }}"{% endif %}
+{% if navidrome_spotify_secret is defined and navidrome_spotify_secret|length %}Spotify.Secret = "{{ navidrome_spotify_secret }}"{% endif %}
+{% if navidrome_enable_gravatar is defined and navidrome_enable_gravatar|length %}EnableGravatar = {{ navidrome_enable_gravatar }}{% endif %}
