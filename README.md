@@ -15,7 +15,7 @@ navidrome_user: www-data
 navidrome_group: www-data
 
 # download information
-navidrome_version: 0.40.0
+navidrome_version: 0.44.1
 navidrome_arch: "{{ ansible_architecture }}"
 navidrome_system: "{{ ansible_system }}"
 
@@ -58,7 +58,7 @@ navidrome_loglevel: ""  # "info", error info debug trace
 
 navidrome_datafolder: ""  # "./data"
 navidrome_musicfolder: ""  # "./music"
-navidrome_scaninterval: ""  # "1m"
+navidrome_scanschedule: ""  # "@every 1m"
 
 navidrome_authlimit: ""  # 5
 navidrome_authratelimit: ""  # "20s"
@@ -75,11 +75,6 @@ navidrome_coverartpriority: ""  # "embedded, cover.*, folder.*, front.*"
 navidrome_imagecachesize: ""  # "100MB"
 navidrome_jpegquality: ""  # 75
 navidrome_enabletranscodingconfig: ""  # false
-
-# WIP features and such
-navidrome_dev_logsourceline: ""
-navidrome_dev_autocreateadminpassword: ""
-navidrome_dev_oldscanner: ""  # false
 ```
 
 # Dependencies

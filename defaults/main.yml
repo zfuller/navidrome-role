@@ -1,7 +1,7 @@
 ---
 navidrome_user: www-data
 navidrome_group: www-data
-navidrome_version: 0.40.0
+navidrome_version: 0.44.1
 navidrome_arch: "{{ ansible_architecture }}"
 navidrome_system: "{{ ansible_system }}"
 navidrome_dl_url: github.com/deluan/navidrome/releases/download
@@ -31,8 +31,9 @@ navidrome_loglevel: ""  # "info", error info debug trace
 
 navidrome_datafolder: ""  # "./data"
 navidrome_musicfolder: ""  # "./music"
-navidrome_scaninterval: ""  # "1m"
+navidrome_scanschedule: ""  # "@every 1m"
 
+# https://www.navidrome.org/docs/usage/security/#limit-login-attempts
 navidrome_authlimit: ""  # 5
 navidrome_authratelimit: ""  # "20s"
 
@@ -48,6 +49,7 @@ navidrome_coverartpriority: ""  # "embedded, cover.*, folder.*, front.*"
 navidrome_imagecachesize: ""  # "100MB"
 navidrome_jpegquality: ""  # 75
 navidrome_enabletranscodingconfig: ""  # false
+navidrome_enable_logredacting: "true"
 
 navidrome_scanner_extractor: "ffmpeg"
 
@@ -65,4 +67,14 @@ navidrome_lastfm_language: "en"  # two letter code - https://en.wikipedia.org/wi
 navidrome_spotify_id: ""
 navidrome_spotify_secret: ""
 
-navidrome_enable_gravatar: "false"
+navidrome_enable_gravatar: "false" # false
+navidrome_enable_favourites: "true" # true
+navidrome_enable_starrating: "true" # true
+navidrome_enable_userediting: "true" # true
+
+# https://www.navidrome.org/docs/usage/security/#reverse-proxy-authentication
+navidrome_proxy_userheader: "" # "Remote-User"
+navidrome_proxy_whitelist: "" # empty
+
+# https://www.navidrome.org/docs/usage/security/#encrypted-passwords
+navidrome_passwordencryptionkey: ""

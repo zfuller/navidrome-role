@@ -7,7 +7,7 @@
 {% if navidrome_altconfigfile is defined and navidrome_altconfigfile|length %}ConfigFile = "{{ navidrome_altconfigfile }}"{% endif %}
 {% if navidrome_datafolder is defined and navidrome_datafolder|length %}DataFolder = "{{ navidrome_datafolder }}"{% endif %}
 {% if navidrome_musicfolder is defined and navidrome_musicfolder|length %}MusicFolder = "{{ navidrome_musicfolder }}"{% endif %}
-{% if navidrome_scaninterval is defined and navidrome_scaninterval|length %}ScanInterval = "{{ navidrome_scaninterval }}"{% endif %}
+{% if navidrome_scanschedule is defined and navidrome_scanschedule|length %}ScanSchedule = "{{ navidrome_scaninterval }}"{% endif %}
 {% if navidrome_authlimit is defined and navidrome_authlimit is number %}AuthRequestLimit = "{{ navidrome_authlimit }}"{% endif %}
 {% if navidrome_authratelimit is defined and navidrome_authratelimit|length %}AuthWindowLength = "{{ navidrome_authratelimit }}"{% endif %}
 {% if navidrome_gaid is defined and navidrome_gaid|length %}GATrackingID = "{{ navidrome_gaid }}"{% endif %}
@@ -29,4 +29,11 @@
 {% if navidrome_lastfm_language is defined and navidrome_lastfm_language|length %}LastFM.Language = "{{ navidrome_lastfm_language }}"{% endif %}
 {% if navidrome_spotify_id is defined and navidrome_spotify_id|length %}Spotify.ID = "{{ navidrome_spotify_id }}"{% endif %}
 {% if navidrome_spotify_secret is defined and navidrome_spotify_secret|length %}Spotify.Secret = "{{ navidrome_spotify_secret }}"{% endif %}
+{% if navidrome_enable_logredacting is defined and navidrome_enable_logredacting|length %}EnableLogRedacting = {{ navidrome_enable_logredacting }}{% endif %}
 {% if navidrome_enable_gravatar is defined and navidrome_enable_gravatar|length %}EnableGravatar = {{ navidrome_enable_gravatar }}{% endif %}
+{% if navidrome_enable_favourites is defined and navidrome_enable_favourites|length %}EnableFavourites = {{ navidrome_enable_favourites }}{% endif %}
+{% if navidrome_enable_starrating is defined and navidrome_enable_starrating|length %}EnableStarRating = {{ navidrome_enable_starrating }}{% endif %}
+{% if navidrome_enable_userediting is defined and navidrome_enable_userediting|length %}EnableUserEditing = {{ navidrome_enable_userediting }}{% endif %}
+{% if navidrome_passwordencryptionkey is defined and navidrome_passwordencryptionkey|length %}PasswordEncryptionKey = {{ navidrome_passwordencryptionkey }}{% endif %}
+{% if navidrome_proxy_userheader is defined and navidrome_proxy_userheader|length %}ReverseProxyUserHeader = {{ navidrome_proxy_userheader }}{% endif %}
+{% if navidrome_proxy_whitelist is defined and navidrome_proxy_whitelist|length %}ReverseProxyWhitelist = {{ navidrome_proxy_whitelist }}{% endif %}
