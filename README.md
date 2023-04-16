@@ -1,13 +1,23 @@
 # navidrome
 
-Installs and configures Navidrome self hosted music server.
-https://www.navidrome.org/about/
+This ansible role installs and configures the [Navidrome](https://www.navidrome.org/about/) self-hosted music server on a Linux server. This role downloads the latest release of Navidrome from the GitHub repository and sets up any custom configuration settings in navidrome.toml set in the navidrome_config variable. It also configures the systemd service as well.
+
+Once installed, the Navidrome server can be accessed via a web browser at the IP address or domain name of the server, using the default port of 4533. You will need to setup an admin user right away for the first installation.
+
+For additional guidance, please visit the [Getting Started](https://www.navidrome.org/docs/getting-started/) page on the Navidrome website.
+
+Please note that this is not an official Navidrome role, but rather a personal project I developed for my own use and am sharing with the community.
 
 # Requirements
 
-Can be run solo or with a webserver with reverse proxy
+Navidrome can be run solo or with a webserver using a reverse proxy.
 
 # Role Variables
+
+The main variable that you will want to set is the *MusicFolder* variable. This will be the location of your music library. Everything else can be left default.
+
+If you would like to know more about the additional variables you can add, refer to [configuration-options](https://www.navidrome.org/docs/usage/configuration-options/) for additional options and explainations.
+
 
 ```yaml
 navidrome_user: www-data
@@ -25,14 +35,14 @@ navidrome_pid_file: /var/run/navidrome.pid
 navidrome_package_requirements:
   - ffmpeg
 
-# Refer to https://www.navidrome.org/docs/usage/configuration-options/ for configuration option definitions.
-# Here are a list of config values that navidrome takes, more can be added to the dictionary as they are released
+# The following includes just a few of the configuration settings that Navidrome accepts.
+# Additional settings can be added to the dictionary as needed.
 navidrome_config:
-  MusicFolder:   # Default: "./music"
-  DataFolder:   # Default: "./data"
+  MusicFolder:   # Default: "{{ navidrome_config_dir }}/music"
+  DataFolder:   # Default: "{{ navidrome_config_dir }}/data"
   LogLevel:   # Default: "info"
   Address:   # Default: 0.0.0.0 and :: (all IPs)
-  BaseUrl:   # Default: Empty
+  BaseUrl:   # Default: (empty)
   Port:   # Default: 4533
   AuthRequestLimit:   # Default: 5
   AuthWindowLength:   # Default: "20s"
@@ -42,46 +52,7 @@ navidrome_config:
   DefaultDownsamplingFormat:   # Default: opus
   DefaultLanguage:   # Default: "en"
   DefaultTheme:   # Default: Dark
-  EnableArtworkPrecache:   # Default: true
-  EnableCoverAnimation:   # Default: true
-  EnableDownloads:   # Default: true
-  EnableExternalServices:   # Default: true
-  EnableFavourites:   # Default: true
-  EnableGravatar:   # Default: false
-  EnableLogRedacting:   # Default: true
-  EnableMediaFileCoverArt:   # Default: true
-  EnableReplayGain:   # Default: true
-  EnableSharing:   # Default: false
-  EnableStarRating:   # Default: true
-  EnableTranscodingConfig:   # Default: false
-  EnableUserEditing:   # Default: true
-  FFmpegPath:   # Default: Empty (search in the PATH)
-  GATrackingID:   # Default: Empty (disabled)
-  IgnoredArticles:   # Default: "The El La Los Las Le Les Os As O A"
-  ImageCacheSize:   # Default: "100MB"
-  LastFM.ApiKey:   # Default: Navidrome project's shared ApiKey
-  LastFM.Enabled:   # Default: true
-  LastFM.Language:   # Default: "en"
-  LastFM.Secret:   # Default: Navidrome project's shared Secret
-  ListenBrainz.BaseURL:   # Default: https://api.listenbrainz.org/1/
-  ListenBrainz.Enabled:   # Default: true
-  MaxSidebarPlaylists:   # Default: 100
-  PasswordEncryptionKey:   # Default: (empty)
-  PlaylistsPath:   # Default: ".:**/**" (meaning MusicFolder and all its subfolders)
-  Prometheus.Enabled:   # Default: false
-  Prometheus.MetricsPath:   # Default: "/metrics"
-  RecentlyAddedByModTime:   # Default: false
-  ReverseProxyUserHeader:   # Default: "Remote-User"
-  ReverseProxyWhitelist:   # Default: (empty)
-  Scanner.Extractor:   # Default: "taglib"
-  Scanner.GenreSeparators:   # Default: ";/,"
-  ScanSchedule:   # Default: "@every 1m"
-  SearchFullString:   # Default: false
-  SessionTimeout:   # Default: "24h"
-  Spotify.ID:   # Default: (empty)
-  Spotify.Secret:   # Default: (empty)
-  SubsonicArtistParticipations:   # Default: false
-  TranscodingCacheSize:   # Default: "100MB"
+...
   UILoginBackgroundUrl:   # Default: random music image from Unsplash.com
   UIWelcomeMessage:   # Default: (empty)
 ```
@@ -92,7 +63,6 @@ N/A
 
 # Example Playbook
 
-## Standalone
 ```yaml
     - name: setup navidrom
       hosts: navidrome
@@ -112,7 +82,7 @@ N/A
           AuthWindowLength: "30m"
           UIWelcomeMessage: "welcome"
       roles:
-         - role: zfuller.navidrome_role
+        - role: zfuller.navidrome_role
 ```
 
 # License
