@@ -1,80 +1,79 @@
 ---
 navidrome_user: www-data
 navidrome_group: www-data
-navidrome_version: 0.47.5
-navidrome_arch: "{{ ansible_architecture }}"
-navidrome_system: "{{ ansible_system }}"
-navidrome_dl_url: github.com/deluan/navidrome/releases/download
-navidrome_release_tar: |
-  https://{{ navidrome_dl_url }}/v{{ navidrome_version }}/navidrome_{{ navidrome_version }}_{{ navidrome_system }}_{{ navidrome_arch }}.tar.gz
-navidrome_remote_src: yes  # yamllint disable-line rule:truthy
 
-navidrome_install_location: /opt/navidrome
+navidrome_release_url: https://github.com/navidrome/navidrome/releases
+navidrome_temp_location: /tmp
 
-navidrome_package_requirements:
-  - ffmpeg
+navidrome_install_location: /opt
+navidrome_bin_location: "{{ navidrome_install_location }}/navidrome"
+
+navidrome_config_dir: /var/lib/navidrome
+navidrome_config_file: navidrome.toml
+navidrome_config_file_location: "{{ navidrome_config_dir }}/{{ navidrome_config_file }}"
+navidrome_pid_file: /var/run/navidrome.pid
 
 navidrome_service_privatedevices:
 navidrome_service_protectsystem:
 navidrome_service_protecthome:
 
-navidrome_config_dir: /var/lib/navidrome
-navidrome_config_file: navidrome.toml
+navidrome_package_requirements:
+  - ffmpeg
 
-navidrome_altconfigfile: ""
-
-navidrome_ipaddress: ""  # 0.0.0.0
-navidrome_port: 4533  # 4533
-
-navidrome_baseurl: ""
-navidrome_loglevel: ""  # "info", error info debug trace
-
-navidrome_datafolder: ""  # "./data"
-navidrome_musicfolder: ""  # "./music"
-navidrome_scanschedule: ""  # "@every 1m"
-
-# https://www.navidrome.org/docs/usage/security/#limit-login-attempts
-navidrome_authlimit: ""  # 5
-navidrome_authratelimit: ""  # "20s"
-
-# Google analytics account ID
-navidrome_gaid: ""  # UA-XXXXXXXX
-
-navidrome_ignoredarticles: ""  # "The El La Los Las Le Les Os As O A"
-navidrome_sessiontimeout: ""  # "24h"
-navidrome_transcodingcachesize: ""  # "100MB"
-navidrome_uiloginbackgroundurl: ""
-navidrome_uiwelcomemessage: ""
-navidrome_coverartpriority: ""  # "embedded, cover.*, folder.*, front.*"
-navidrome_imagecachesize: ""  # "100MB"
-navidrome_jpegquality: ""  # 75
-navidrome_enabletranscodingconfig: ""  # false
-navidrome_enable_logredacting: "true"
-
-navidrome_scanner_extractor: "ffmpeg"
-
-navidrome_pid_file: /var/run/navidrome.pid
-
-
-navidrome_dev_logsourceline: ""
-navidrome_dev_autocreateadminpassword: ""
-navidrome_dev_oldscanner: ""  # false
-
-navidrome_lastfm_apikey: ""
-navidrome_lastfm_secret: ""
-navidrome_lastfm_language: "en"  # two letter code - https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-
-navidrome_spotify_id: ""
-navidrome_spotify_secret: ""
-
-navidrome_enable_gravatar: "false" # false
-navidrome_enable_favourites: "true" # true
-navidrome_enable_starrating: "true" # true
-navidrome_enable_userediting: "true" # true
-
-# https://www.navidrome.org/docs/usage/security/#reverse-proxy-authentication
-navidrome_proxy_userheader: "" # "Remote-User"
-navidrome_proxy_whitelist: "" # empty
-
-# https://www.navidrome.org/docs/usage/security/#encrypted-passwords
-navidrome_passwordencryptionkey: ""
+navidrome_config:
+  MusicFolder:   # Default: "./music"
+  DataFolder:   # Default: "./data"
+  LogLevel:   # Default: "info"
+  Address:   # Default: 0.0.0.0 and :: (all IPs)
+  BaseUrl:   # Default: Empty
+  Port:   # Default: 4533
+  AuthRequestLimit:   # Default: 5
+  AuthWindowLength:   # Default: "20s"
+  AutoImportPlaylists:   # Default: true
+  CoverArtPriority:   # Default: cover.*, folder.*, front.*, embedded, external
+  CoverJpegQuality:   # Default: 75
+  DefaultDownsamplingFormat:   # Default: opus
+  DefaultLanguage:   # Default: "en"
+  DefaultTheme:   # Default: Dark
+  EnableArtworkPrecache:   # Default: true
+  EnableCoverAnimation:   # Default: true
+  EnableDownloads:   # Default: true
+  EnableExternalServices:   # Default: true
+  EnableFavourites:   # Default: true
+  EnableGravatar:   # Default: false
+  EnableLogRedacting:   # Default: true
+  EnableMediaFileCoverArt:   # Default: true
+  EnableReplayGain:   # Default: true
+  EnableSharing:   # Default: false
+  EnableStarRating:   # Default: true
+  EnableTranscodingConfig:   # Default: false
+  EnableUserEditing:   # Default: true
+  FFmpegPath:   # Default: Empty (search in the PATH)
+  GATrackingID:   # Default: Empty (disabled)
+  IgnoredArticles:   # Default: "The El La Los Las Le Les Os As O A"
+  ImageCacheSize:   # Default: "100MB"
+  LastFM.ApiKey:   # Default: Navidrome project's shared ApiKey
+  LastFM.Enabled:   # Default: true
+  LastFM.Language:   # Default: "en"
+  LastFM.Secret:   # Default: Navidrome project's shared Secret
+  ListenBrainz.BaseURL:   # Default: https://api.listenbrainz.org/1/
+  ListenBrainz.Enabled:   # Default: true
+  MaxSidebarPlaylists:   # Default: 100
+  PasswordEncryptionKey:   # Default: (empty)
+  PlaylistsPath:   # Default: ".:**/**" (meaning MusicFolder and all its subfolders)
+  Prometheus.Enabled:   # Default: false
+  Prometheus.MetricsPath:   # Default: "/metrics"
+  RecentlyAddedByModTime:   # Default: false
+  ReverseProxyUserHeader:   # Default: "Remote-User"
+  ReverseProxyWhitelist:   # Default: (empty)
+  Scanner.Extractor:   # Default: "taglib"
+  Scanner.GenreSeparators:   # Default: ";/,"
+  ScanSchedule:   # Default: "@every 1m"
+  SearchFullString:   # Default: false
+  SessionTimeout:   # Default: "24h"
+  Spotify.ID:   # Default: (empty)
+  Spotify.Secret:   # Default: (empty)
+  SubsonicArtistParticipations:   # Default: false
+  TranscodingCacheSize:   # Default: "100MB"
+  UILoginBackgroundUrl:   # Default: random music image from Unsplash.com
+  UIWelcomeMessage:   # Default: (empty)

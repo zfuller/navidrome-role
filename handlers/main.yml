@@ -1,9 +1,18 @@
 ---
-- name: reload systemd
-  systemd:
+- name: Reload_systemd
+  become: yes
+  ansible.builtin.systemd:
     daemon_reload: yes  # yamllint disable-line rule:truthy
 
-- name: restart navidrome
-  systemd:
+- name: Restart_navidrome
+  ansible.builtin.systemd:
     name: navidrome
     state: restarted
+
+- name: Enable_navidrome
+  ansible.builtin.systemd:
+    name: navidrome
+    state: started
+    enabled: yes  # yamllint disable-line rule:truthy
+  notify:
+    - Reload_systemd

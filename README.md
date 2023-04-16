@@ -10,71 +10,80 @@ Can be run solo or with a webserver with reverse proxy
 # Role Variables
 
 ```yaml
-# User that will run navidrome
 navidrome_user: www-data
 navidrome_group: www-data
 
-# download information
-navidrome_version: 0.47.5
-navidrome_arch: "{{ ansible_architecture }}"
-navidrome_system: "{{ ansible_system }}"
+navidrome_release_url: https://github.com/navidrome/navidrome/releases
+navidrome_temp_location: /tmp
 
-# default location of the tar
-navidrome_dl_url: github.com/deluan/navidrome/releases/download
-navidrome_release_tar: |
-  https://{{ navidrome_dl_url }}/v{{ navidrome_version }}/navidrome_{{ navidrome_version }}_{{ navidrome_system }}_{{ navidrome_arch }}.tar.gz
+navidrome_install_location: /opt
 
-# If you have a local tar.gz that you would like to use you can set
-# navidrome_release_tar: to the location of it and then set
-# navidrome_remote_src to no
-navidrome_remote_src: yes
-
-navidrome_install_location: /opt/navidrome
 navidrome_config_dir: /var/lib/navidrome
-
-navidrome_configuration_file: navidrome.toml
-
-# additional package requirements
-navidrome_package_requirements:
-  - ffmpeg
-  - libtag1v5
-
-# systemd service options
-navidrome_service_privatedevices:
-navidrome_service_protectsystem:
-navidrome_service_protecthome:
-
+navidrome_config_file: navidrome.toml
 navidrome_pid_file: /var/run/navidrome.pid
 
-# configuration file settings, blank here which will use navidromes default settings
-# Read https//www.navidrome.org/docs/usage/configuration-options/ for more info
-navidrome_altconfigfile: ""
+navidrome_package_requirements:
+  - ffmpeg
 
-navidrome_ipaddress: ""  # 0.0.0.0
-navidrome_port: 4533  # 4533
-
-navidrome_baseurl: ""
-navidrome_loglevel: ""  # "info", error info debug trace
-
-navidrome_datafolder: ""  # "./data"
-navidrome_musicfolder: ""  # "./music"
-navidrome_scanschedule: ""  # "@every 1m"
-
-navidrome_authlimit: ""  # 5
-navidrome_authratelimit: ""  # "20s"
-
-# Google analytics account ID
-navidrome_gaid: ""  # UA-XXXXXXXX
-
-navidrome_ignoredarticles: ""  # "The El La Los Las Le Les Os As O A"
-navidrome_sessiontimeout: ""  # "24h"
-navidrome_transcodingcachesize: ""  # "100MB"
-navidrome_uiloginbackgroundurl: ""
-navidrome_uiwelcomemessage: ""
-navidrome_coverartpriority: ""  # "embedded, cover.*, folder.*, front.*"
-navidrome_imagecachesize: ""  # "100MB"
-navidrome_jpegquality: ""  # 75
-navidrome_enabletranscodingconfig: ""  # false
+# Refer to https://www.navidrome.org/docs/usage/configuration-options/ for configuration option definitions.
+# Here are a list of config values that navidrome takes, more can be added to the dictionary as they are released
+navidrome_config:
+  MusicFolder:   # Default: "./music"
+  DataFolder:   # Default: "./data"
+  LogLevel:   # Default: "info"
+  Address:   # Default: 0.0.0.0 and :: (all IPs)
+  BaseUrl:   # Default: Empty
+  Port:   # Default: 4533
+  AuthRequestLimit:   # Default: 5
+  AuthWindowLength:   # Default: "20s"
+  AutoImportPlaylists:   # Default: true
+  CoverArtPriority:   # Default: cover.*, folder.*, front.*, embedded, external
+  CoverJpegQuality:   # Default: 75
+  DefaultDownsamplingFormat:   # Default: opus
+  DefaultLanguage:   # Default: "en"
+  DefaultTheme:   # Default: Dark
+  EnableArtworkPrecache:   # Default: true
+  EnableCoverAnimation:   # Default: true
+  EnableDownloads:   # Default: true
+  EnableExternalServices:   # Default: true
+  EnableFavourites:   # Default: true
+  EnableGravatar:   # Default: false
+  EnableLogRedacting:   # Default: true
+  EnableMediaFileCoverArt:   # Default: true
+  EnableReplayGain:   # Default: true
+  EnableSharing:   # Default: false
+  EnableStarRating:   # Default: true
+  EnableTranscodingConfig:   # Default: false
+  EnableUserEditing:   # Default: true
+  FFmpegPath:   # Default: Empty (search in the PATH)
+  GATrackingID:   # Default: Empty (disabled)
+  IgnoredArticles:   # Default: "The El La Los Las Le Les Os As O A"
+  ImageCacheSize:   # Default: "100MB"
+  LastFM.ApiKey:   # Default: Navidrome project's shared ApiKey
+  LastFM.Enabled:   # Default: true
+  LastFM.Language:   # Default: "en"
+  LastFM.Secret:   # Default: Navidrome project's shared Secret
+  ListenBrainz.BaseURL:   # Default: https://api.listenbrainz.org/1/
+  ListenBrainz.Enabled:   # Default: true
+  MaxSidebarPlaylists:   # Default: 100
+  PasswordEncryptionKey:   # Default: (empty)
+  PlaylistsPath:   # Default: ".:**/**" (meaning MusicFolder and all its subfolders)
+  Prometheus.Enabled:   # Default: false
+  Prometheus.MetricsPath:   # Default: "/metrics"
+  RecentlyAddedByModTime:   # Default: false
+  ReverseProxyUserHeader:   # Default: "Remote-User"
+  ReverseProxyWhitelist:   # Default: (empty)
+  Scanner.Extractor:   # Default: "taglib"
+  Scanner.GenreSeparators:   # Default: ";/,"
+  ScanSchedule:   # Default: "@every 1m"
+  SearchFullString:   # Default: false
+  SessionTimeout:   # Default: "24h"
+  Spotify.ID:   # Default: (empty)
+  Spotify.Secret:   # Default: (empty)
+  SubsonicArtistParticipations:   # Default: false
+  TranscodingCacheSize:   # Default: "100MB"
+  UILoginBackgroundUrl:   # Default: random music image from Unsplash.com
+  UIWelcomeMessage:   # Default: (empty)
 ```
 
 # Dependencies
@@ -89,20 +98,22 @@ N/A
       hosts: navidrome
       gather_facts: yes
       vars:
-        navidrome_musicfolder: /home/music
-        navidrome_sessiontimeout: 168h
-        navidrome_transcodingcachesize: 5GB
-        navidrome_imagecachesize: 5GB
-        navidrome_authlimit: 10
-        navidrome_authratelimit: 30m
-        navidrome_uiwelcomemessage: "yo"
-        navidrome_jpegquality: 100
+        navidrome_config:
+          EnableGravatar: true
+          EnableDownloads: false
+          ImageCacheSize: "1GB"
+          MaxSidebarPlaylists: 5
+          CoverJpegQuality: 100
+          DefaultLanguage: "en"
+          MusicFolder: /home/music
+          SessionTimeout: "168h"
+          TranscodingCacheSize: "5GB"
+          AuthRequestLimit: 10
+          AuthWindowLength: "30m"
+          UIWelcomeMessage: "welcome"
       roles:
          - role: zfuller.navidrome_role
 ```
-
-## w/Caddy reverse proxy
-[example_playbook.yml](example_playbook.yml)
 
 # License
 

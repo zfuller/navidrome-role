@@ -1,19 +1,22 @@
 ---
 galaxy_info:
+  role_name: navidrome
   author: zfuller
+  namespace: zfuller
   description: |
     installs and configures Navidrome music server and streamer
     see more info at https://www.navidrome.org/about/
 
   license: GPL-3.0-only
 
-  min_ansible_version: 2.7
+  min_ansible_version: "2.10"
 
   platforms:
     - name: Ubuntu
       versions:
         - bionic
         - focal
+        - jammy
 
   galaxy_tags:
     - navidrome

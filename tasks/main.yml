@@ -1,14 +1,14 @@
 ---
 - name: Install prereq packages
-  apt:
+  ansible.builtin.apt:
     name: "{{ navidrome_package_requirements }}"
     state: present
     update_cache: yes  # yamllint disable-line rule:truthy
     force_apt_get: yes  # yamllint disable-line rule:truthy
   when: navidrome_package_requirements is defined
 
-- name: ensure directories
-  file:
+- name: Ensure directories
+  ansible.builtin.file:
     path: "{{ item }}"
     owner: "{{ navidrome_user }}"
     group: "{{ navidrome_group }}"
@@ -18,46 +18,59 @@
     - "{{ navidrome_install_location }}"
     - "{{ navidrome_config_dir }}"
 
-- name: Download and extract
-  unarchive:
-    src: "{{ navidrome_release_tar }}"
+- name: Get latest release URL
+  ansible.builtin.uri:
+    url: "{{ navidrome_release_url }}/latest"
+    method: HEAD
+  register: result
+
+- name: Extract latest release URL
+  ansible.builtin.set_fact:
+    latest_navidrome_release_url: "{{ result.url }}"
+
+- name: Extract version number from release URL
+  ansible.builtin.set_fact:
+    latest_navidrome_version: "{{ latest_navidrome_release_url.split('/')[-1] | replace('v', '') }}"
+
+- name: Construct asset URL
+  ansible.builtin.set_fact:
+    navidrome_asset_url: "{{ navidrome_release_url }}/download/v{{ latest_navidrome_version }}/navidrome_{{ latest_navidrome_version }}_{{ ansible_system }}_{{ ansible_architecture }}.tar.gz"
+
+- name: Download latest release
+  ansible.builtin.get_url:
+    url: "{{ navidrome_asset_url }}"
+    dest: "{{ navidrome_temp_location }}/navidrome_{{ latest_navidrome_version }}_{{ ansible_system }}_{{ ansible_architecture }}.tar.gz"
+    mode: '0400'
+
+- name: Extract latest release
+  ansible.builtin.unarchive:
+    src: "{{ navidrome_temp_location }}/navidrome_{{ latest_navidrome_version }}_{{ ansible_system }}_{{ ansible_architecture }}.tar.gz"
     dest: "{{ navidrome_install_location }}"
-    remote_src: "{{ navidrome_remote_src }}"
+    remote_src: yes
     owner: "{{ navidrome_user }}"
     group: "{{ navidrome_group }}"
     mode: '0755'
-  when: navidrome_release_tar is defined
+    creates: "{{ navidrome_install_location }}/navidrome"
   notify:
-    - restart navidrome
+    - Restart_navidrome
 
-- name: navidrome | Configure navidrome.toml
-  template:
+- name: Configure navidrome.toml
+  ansible.builtin.template:
     src: var/lib/navidrome/navidrome.toml.j2
     dest: "{{ navidrome_config_dir }}/{{ navidrome_config_file }}"
     owner: "{{ navidrome_user }}"
     group: "{{ navidrome_group }}"
     mode: '0644'
   notify:
-    - restart navidrome
+    - Restart_navidrome
 
-- name: navidrome | Configure navidrome systemd service
-  template:
+- name: Configure navidrome systemd service
+  ansible.builtin.template:
     src: etc/systemd/system/navidrome.service.j2
     dest: /etc/systemd/system/navidrome.service
     owner: "{{ navidrome_user }}"
     group: "{{ navidrome_group }}"
     mode: '0644'
   notify:
-    - restart navidrome
-
-- name: reload systemd
-  systemd:
-    daemon_reload: yes  # yamllint disable-line rule:truthy
-
-- name: enable navidrome
-  systemd:
-    name: navidrome
-    state: started
-    enabled: yes  # yamllint disable-line rule:truthy
-  notify:
-    - reload systemd
+    - Enable_navidrome
+    - Reload_systemd
